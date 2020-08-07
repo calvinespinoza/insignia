@@ -1,29 +1,50 @@
-var PlayFab = require("./Scripts/PlayFab/PlayFab.js");
-var PlayFabClient = require("./Scripts/PlayFab/PlayFabClient.js");
+var PlayFab = require("./playfab/PlayFab.js");
+var PlayFabClient = require("./playfab/PlayFabClient.js");
 
-function DoExampleLoginWithCustomID() {
-    PlayFab.settings.titleId = "144";
+function loginWithPlayFab(req, res) {
+    PlayFab.settings.titleId = "A32F0";
     var loginRequest = {
         // Currently, you need to look up the correct format for this object in the API-docs:
         // https://api.playfab.com/Documentation/Client/method/LoginWithCustomID
         TitleId: "A32F0",
-        Username: "thisiskeil",
-        Password: "keilkeil"
+        Username: "thisiscalvin",
+        Password: "calvin"
     };
 
-    PlayFabClient.LoginWithPlayFab(loginRequest, LoginCallback);
+    PlayFabClient.LoginWithPlayFab(loginRequest, loginCallback, res);
 }
 
-function LoginCallback(error, result) {
+
+function loginCallback(error, result, res) {
     if (result !== null) {
-        console.log("Congratulations, you made your first successful API call!");
+        console.log("Success");
+        getLeaderboard("High Score", res);
     } else if (error !== null) {
-        console.log("Something went wrong with your first API call.");
+        console.log("Something went wrong with your API call.");
         console.log("Here's some debug information:");
         console.log(CompileErrorReport(error));
     }
 }
 
+function functionCallback(error, result, res) {
+    if (result !== null) {
+        console.log("Success");
+        console.log(JSON.stringify(result.data.Leaderboard));
+        res.send(result.data.Leaderboard);
+    } else if (error !== null) {
+        console.log("Something went wrong with your API call.");
+        console.log("Here's some debug information:");
+        console.log(CompileErrorReport(error));
+    }
+}
+
+function getLeaderboard(leaderboardName, res) {
+    var leaderboardRequest = {
+        StatisticName: leaderboardName,
+        StartPosition: 0
+    }
+    PlayFabClient.GetLeaderboard(leaderboardRequest, functionCallback, res);
+}
 // This is a utility function we haven't put into the core SDK yet.  Feel free to use it.
 function CompileErrorReport(error) {
     if (error == null)
@@ -35,5 +56,4 @@ function CompileErrorReport(error) {
     return fullErrors;
 }
 
-// Kick off the actual login call
-DoExampleLoginWithCustomID();
+module.exports = { getLeaderboard, loginWithPlayFab };
