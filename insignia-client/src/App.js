@@ -11,10 +11,12 @@ function App() {
   return (
     <div>
       <Layout className="App">
-        <Header className="header">Data</Header>
+        <Header className="header">Insignia</Header>
         <Layout>
+          {/**
           <Sider>left sidebar</Sider>
-          <Content>
+           */}
+          <Content style={{margin: 'auto'}}>
             <Statistics />
           </Content>
         </Layout>

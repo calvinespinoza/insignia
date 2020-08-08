@@ -18,7 +18,7 @@ function loginWithPlayFab(req, res) {
 function loginCallback(error, result, res) {
     if (result !== null) {
         console.log("Success");
-        getLeaderboard("High Score", res);
+        getLeaderboard("Total Score", res);
     } else if (error !== null) {
         console.log("Something went wrong with your API call.");
         console.log("Here's some debug information:");
