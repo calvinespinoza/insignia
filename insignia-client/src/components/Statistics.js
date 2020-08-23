@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
+import queryString from 'query-string';
 
 export class Statistics extends React.Component {
   constructor() {
@@ -9,16 +10,16 @@ export class Statistics extends React.Component {
   }
 
   componentDidMount() {
-    this.getStatistics();
+    this.getStatistics('High Score');
   }
-  getStatistics() {
-    fetch('http://localhost:8080/test')
+  getStatistics(statisticName) {
+    fetch('http://localhost:8080/leaderboard?statistic=' + statisticName,)
       .then(response =>
         response.json()
       )
       .then((data) => {
         this.setState({
-          leaderboard: data,
+          leaderboard: data.Leaderboard,
           loading: false
         })
       })

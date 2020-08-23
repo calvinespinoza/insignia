@@ -1,50 +1,21 @@
-var PlayFab = require("./playfab/PlayFab.js");
-var PlayFabClient = require("./playfab/PlayFabClient.js");
+const { PlayFabServer, PlayFab } = require("playfab-sdk");
 
-function loginWithPlayFab(req, res) {
+function getLeaderboard(statisticName, fn) {
+    PlayFab.settings.developerSecretKey = "6QG3HXGR4X393YGBIWBPAHYBXA5SD4RXTSJAOX6BJPXW4BKOMO";
     PlayFab.settings.titleId = "A32F0";
-    var loginRequest = {
-        // Currently, you need to look up the correct format for this object in the API-docs:
-        // https://api.playfab.com/Documentation/Client/method/LoginWithCustomID
-        TitleId: "A32F0",
-        Username: "thisiscalvin",
-        Password: "calvin"
-    };
-
-    PlayFabClient.LoginWithPlayFab(loginRequest, loginCallback, res);
-}
-
-
-function loginCallback(error, result, res) {
-    if (result !== null) {
-        console.log("Success");
-        getLeaderboard("Total Score", res);
-    } else if (error !== null) {
-        console.log("Something went wrong with your API call.");
-        console.log("Here's some debug information:");
-        console.log(CompileErrorReport(error));
-    }
-}
-
-function functionCallback(error, result, res) {
-    if (result !== null) {
-        console.log("Success");
-        console.log(JSON.stringify(result.data.Leaderboard));
-        res.send(result.data.Leaderboard);
-    } else if (error !== null) {
-        console.log("Something went wrong with your API call.");
-        console.log("Here's some debug information:");
-        console.log(CompileErrorReport(error));
-    }
-}
-
-function getLeaderboard(leaderboardName, res) {
     var leaderboardRequest = {
-        StatisticName: leaderboardName,
-        StartPosition: 0
+        StatisticName: statisticName,
+        StartPosition: 0,
+        MaxResultsCount: 20
     }
-    PlayFabClient.GetLeaderboard(leaderboardRequest, functionCallback, res);
+    console.log("Getting " + statisticName);
+    PlayFabServer.GetLeaderboard(leaderboardRequest, function (error, result) {
+        console.log(JSON.stringify(result.data.Leaderboard));
+        console.log(CompileErrorReport(error));
+        fn(error, result);
+    })
 }
+
 // This is a utility function we haven't put into the core SDK yet.  Feel free to use it.
 function CompileErrorReport(error) {
     if (error == null)
@@ -56,4 +27,4 @@ function CompileErrorReport(error) {
     return fullErrors;
 }
 
-module.exports = { getLeaderboard, loginWithPlayFab };
+module.exports = { getLeaderboard }
