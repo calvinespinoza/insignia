@@ -20,7 +20,7 @@ export class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    //this.getStatistics('High Score');
+    this.getStatistics('High Score');
     this.getCurrentUserInfo();
   }
   getStatistics(statisticName) {

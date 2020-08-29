@@ -5,13 +5,19 @@
 
 .App {
   height: 100vh;
+  font-family: 'Poppins';
+}
+
+.layout {
   font-family: 'Inter';
+
 }
 
 .header {
+  font-family: 'Inter';
   font-size: 3vmin;
   color: black;
-  font-weight: 700;
+  font-weight: 600;
   background: rgb(238, 238, 238);
 }
 
