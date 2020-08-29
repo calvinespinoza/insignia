@@ -1,15 +1,17 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 export const Landing = () => {
-    return (<Layout style={{ backgroundColor: '#F9F9F9' }}>
-        
+    return (
         <Content style={{ margin: 'auto' }}>
-            LANDING
-           
+            <div>Landing</div>
+            <Button type='primary'>
+                <Link to="/overview">Go to Dashboard</Link>
+            </Button>
         </Content>
-    </Layout>)
+    )
 }

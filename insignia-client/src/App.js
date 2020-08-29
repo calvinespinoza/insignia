@@ -18,19 +18,11 @@ function App() {
 
   return (
     <Router>
-      <Layout className="layout">
+      <Layout className="layout" style={{height:"100vh"}}>
         <Header className="header" style={{ backgroundColor: '#F9F9F9', color: 'black' }} >
           Insignia
       </Header>
         <AuthButton />
-        <ul>
-          <li>
-            <Link to="/public">Public Page</Link>
-          </li>
-          <li>
-            <Link to="/overview">Protected Page</Link>
-          </li>
-        </ul>
 
         <Switch>
           <Route exact path="/">
@@ -38,9 +30,6 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
-          </Route>
-          <Route path="/public">
-            <PublicPage />
           </Route>
           <PrivateRoute path="/overview">
             <Dashboard />
