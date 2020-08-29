@@ -35,16 +35,10 @@ app.route("/leaderboard")
     });
 
 app.route("/login")
-    .post(function (req, res, next) {
-        console.log(req.body);
-        playfab.login(req.body, function (err, result) {
-            if (err) {
-                next(err);
-            } else {
-                res.send(result.data);
-            }
-        })
-    });
+    .post(playfab.login);
+
+app.route("/user/:id")
+    .get(playfab.getUser);
 
 app.listen(port, function () {
     console.log("Server running on port " + port)

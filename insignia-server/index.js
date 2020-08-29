@@ -15,20 +15,51 @@ function getLeaderboard(statisticName, fn) {
     })
 }
 
-function login(request, fn) {
-    request = JSON.parse(request);
+function login(req, res) {
+    request = JSON.parse(req.body);
     PlayFab.settings.titleId = "A32F0";
 
     var loginRequest = {
         Username: request.username,
         Password: request.password
     }
-    console.log({LoginRequest: loginRequest});
-    PlayFabClient.LoginWithPlayFab(loginRequest, function (error, result) {
-        console.log(JSON.stringify(result));
-        console.log(CompileErrorReport(error));
-        fn(error, result);
+    console.log({ LoginRequest: loginRequest });
+    PlayFabClient.LoginWithPlayFab(loginRequest, (error, result) => {
+        HandleCallbackResult(res, error, result);
     })
+}
+
+function getUser(req, res) {
+    PlayFab.settings.titleId = "A32F0";
+
+    var request = {
+        PlayFabId: req.params.id
+    }
+    PlayFabClient.GetAccountInfo(request, (error, result) => {
+        getUserData(res);
+        //HandleCallbackResult(res, error, result)
+    })
+}
+
+function getUserData(res) {
+    var request = {
+        Keys: [
+            "Age", "Country", "School"
+        ]
+    }
+
+    PlayFabClient.GetUserData(request, (error, result) => {
+        HandleCallbackResult(res, error, result)
+    })
+}
+
+function HandleCallbackResult(res, error, result) {
+    if (error) {
+        console.log(CompileErrorReport(error));
+        res.status(error.code).send(error);
+    } else {
+        res.send(result.data);
+    }
 }
 
 // This is a utility function we haven't put into the core SDK yet.  Feel free to use it.
@@ -42,4 +73,4 @@ function CompileErrorReport(error) {
     return fullErrors;
 }
 
-module.exports = { getLeaderboard, login }
+module.exports = { getLeaderboard, login, getUser }
