@@ -1,4 +1,5 @@
 const { PlayFabServer, PlayFab, PlayFabClient } = require("playfab-sdk");
+PlayFab.settings.titleId = "A32F0";
 
 function getLeaderboard(statisticName, fn) {
     PlayFab.settings.developerSecretKey = "6QG3HXGR4X393YGBIWBPAHYBXA5SD4RXTSJAOX6BJPXW4BKOMO";
@@ -17,7 +18,6 @@ function getLeaderboard(statisticName, fn) {
 
 function login(req, res) {
     request = JSON.parse(req.body);
-    PlayFab.settings.titleId = "A32F0";
 
     var loginRequest = {
         Username: request.username,
@@ -29,26 +29,13 @@ function login(req, res) {
     })
 }
 
-function getUser(req, res) {
-    PlayFab.settings.titleId = "A32F0";
-
+function getCurrentUser(req, res) {
     var request = {
-        PlayFabId: req.params.id
+        FunctionName: "getUserData",
+        RevisionSelection: "Latest",
+        GeneratePlayStreamEvent: true
     }
-    PlayFabClient.GetAccountInfo(request, (error, result) => {
-        getUserData(res);
-        //HandleCallbackResult(res, error, result)
-    })
-}
-
-function getUserData(res) {
-    var request = {
-        Keys: [
-            "Age", "Country", "School"
-        ]
-    }
-
-    PlayFabClient.GetUserData(request, (error, result) => {
+    PlayFabClient.ExecuteCloudScript(request, (error, result) => {
         HandleCallbackResult(res, error, result)
     })
 }
@@ -73,4 +60,4 @@ function CompileErrorReport(error) {
     return fullErrors;
 }
 
-module.exports = { getLeaderboard, login, getUser }
+module.exports = { getLeaderboard, login, getCurrentUser }

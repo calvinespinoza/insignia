@@ -5,8 +5,6 @@ import { RootContext } from '../services/RootContext';
 import { Form, Layout, Input, Button, Checkbox, message, AutoComplete } from 'antd';
 const { Content } = Layout;
 
-
-
 const layout = {
     labelCol: {
         span: 8,

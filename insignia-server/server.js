@@ -37,8 +37,8 @@ app.route("/leaderboard")
 app.route("/login")
     .post(playfab.login);
 
-app.route("/user/:id")
-    .get(playfab.getUser);
+app.route("/current-user")
+    .get(playfab.getCurrentUser);
 
 app.listen(port, function () {
     console.log("Server running on port " + port)

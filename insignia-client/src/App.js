@@ -22,8 +22,6 @@ function App() {
         <Header className="header" style={{ backgroundColor: '#F9F9F9', color: 'black' }} >
           Insignia
       </Header>
-        <AuthButton />
-
         <Switch>
           <Route exact path="/">
             <Landing />
@@ -40,18 +38,6 @@ function App() {
     </Router>
   );
 }
-
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
-};
 
 function PrivateRoute({ children, ...rest }) {
   const { authenticated } = useContext(RootContext);
@@ -96,32 +82,6 @@ function AuthButton() {
   ) : (
       <p>You are not logged in.</p>
     );
-}
-function PublicPage() {
-  return <h3>Public</h3>;
-}
-
-function ProtectedPage() {
-  return <h3>Protected</h3>;
-}
-
-function LoginPage() {
-  let history = useHistory();
-  let location = useLocation();
-  const { setAuthenticated } = useContext(RootContext);
-
-  let { from } = location.state || { from: { pathname: "/" } };
-  let login = () => {
-    setAuthenticated(true);
-    history.replace(from);
-  };
-
-  return (
-    <div>
-      <p>You must log in to view the page at {from.pathname}</p>
-      <button onClick={login}>Log in</button>
-    </div>
-  );
 }
 
 export default App;
