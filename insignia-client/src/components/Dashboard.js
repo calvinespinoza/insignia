@@ -1,8 +1,11 @@
 import React from 'react';
 import { Table } from 'antd';
-import queryString from 'query-string';
 
-export class Statistics extends React.Component {
+import { Layout, Menu } from 'antd';
+
+const { Content, Sider } = Layout;
+
+export class Dashboard extends React.Component {
   constructor() {
     super();
     this.state = { leaderboard: [], loading: true };
@@ -13,7 +16,7 @@ export class Statistics extends React.Component {
     this.getStatistics('High Score');
   }
   getStatistics(statisticName) {
-    fetch('http://localhost:8080/leaderboard?statistic=' + statisticName,)
+    fetch('http://localhost:8081/leaderboard?statistic=' + statisticName,)
       .then(response =>
         response.json()
       )
@@ -44,6 +47,14 @@ export class Statistics extends React.Component {
         key: 'StatValue',
       }
     ];
-    return <Table className="table" columns={columns} dataSource={this.state.leaderboard} loading={this.state.loading} pagination={{ pageSize: 7 }} />;
+    return (
+      <Layout>
+        <Sider theme="light">left sidebar</Sider>
+        <Content>
+          <Table className="table" columns={columns} dataSource={this.state.leaderboard} loading={this.state.loading} pagination={{ pageSize: 7 }} />
+        </Content>
+      </Layout>
+    )
+
   }
 }

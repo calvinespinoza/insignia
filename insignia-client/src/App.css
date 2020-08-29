@@ -1,16 +1,18 @@
 @import '~antd/dist/antd.css';
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@531&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap');
 
 .App {
   height: 100vh;
-  font-family: 'IBM Plex Sans';
+  font-family: 'Inter';
 }
 
 .header {
   font-size: 3vmin;
-  color: white;
-  font-weight: 600;
+  color: black;
+  font-weight: 700;
+  background: rgb(238, 238, 238);
 }
 
 .table {
