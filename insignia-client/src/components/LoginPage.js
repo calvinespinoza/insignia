@@ -4,10 +4,25 @@ import { RootContext } from '../services/RootContext';
 import symbol from '../assets/insignia-symbol.svg'
 
 import { Form, Layout, Input, Button, Checkbox, message, Card } from 'antd';
-import Column from 'antd/lib/table/Column';
 
 const { Content } = Layout;
 
+
+export const LoginPage = () => {
+    return (
+        <Layout style={{ backgroundColor: '#f9f9f9' }}>
+            <Content style={{ margin: 'auto', padding: '2em', backgroundColor: '#f9f9f9' }}>
+                <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <img src={symbol} alt="Insignia logo"></img>
+                    <h1 style={{ fontSize: '3vmax', textAlign: "center", letterSpacing: '-0.05em' }}>Log in to Insignia</h1>
+                    <Login />
+                </span>
+            </Content>
+        </Layout>
+    );
+};
+
+/*
 const layout = {
     labelCol: {
         span: 8,
@@ -22,22 +37,7 @@ const tailLayout = {
         span: 16,
     },
 };
-
-export const LoginPage = () => {
-    return (
-        <Layout style={{ backgroundColor: '#f9f9f9' }}>
-            <Content style={{ margin: 'auto', padding: '2em', backgroundColor: '#f9f9f9' }}>
-                <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <img src={symbol}></img>
-                    <h1 style={{ fontSize: '3vmax', textAlign: "center", letterSpacing: '-0.05em' }}>Log in to Insignia</h1>
-                    <Login />
-                </span>
-            </Content>
-        </Layout>
-    );
-};
-
-
+*/
 const Login = () => {
     let history = useHistory();
     let location = useLocation();

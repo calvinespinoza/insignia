@@ -6,17 +6,15 @@ import levelIcon from '../assets/level-icon.png';
 import logoInsignia from '../assets/insignia-light.svg';
 
 import { Bar } from 'ant-design-pro/lib/Charts';
-import { Layout, Menu, Table, Statistic, Card, Row, Col, Typography, Empty, Button } from 'antd';
+import { Layout, Menu, Statistic, Card, Row, Col, Empty, Button } from 'antd';
 import {
-  DesktopOutlined,
-  PieChartOutlined,
+  BarChartOutlined,
   LogoutOutlined,
-  TeamOutlined,
+  BankOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 
 const { Content, Sider } = Layout;
-const { Title } = Typography;
 
 export class Dashboard extends React.Component {
   constructor() {
@@ -30,7 +28,6 @@ export class Dashboard extends React.Component {
       displayName: "",
       userPoints: []
     };
-    this.getStatistics = this.getStatistics.bind(this);
   }
 
   componentDidMount() {
@@ -58,7 +55,7 @@ export class Dashboard extends React.Component {
       for (let i = 0; i < userData.PointsHistory.length; i++) {
         points.push(
           {
-            x: `Intento ${i + 1}`,
+            x: `Attempt ${i + 1}`,
             y: userData.PointsHistory[i].Points
           }
         )
@@ -101,7 +98,7 @@ export class Dashboard extends React.Component {
             <Col sm={24} md={12} lg={4} style={{ fontSize: 28 }}>
               <Row align='middle' >
                 <h2 style={{ margin: 0 }}>Lvl 2</h2>
-                <img src={levelIcon} style={{ width: 60, height: 60, margin: 10 }} />
+                <img src={levelIcon} alt='level-icon' style={{ width: 60, height: 60, margin: 10 }} />
               </Row>
             </Col>
           </Row>
@@ -113,10 +110,10 @@ export class Dashboard extends React.Component {
               <Row gutter={[16, 16]}>
                 <Col span={24}>
                   <Card className='dashboard-card' style={{ padding: '0 2em' }}>
-                    <span style={{ marginBottom: 30 }}>
+                    <div style={{ marginBottom: 30 }}>
                       <h2 className='h2-dashboard' style={{ margin: 0 }}>Points History</h2>
                       <span>Based on your last 10 attempts</span>
-                    </span>
+                    </div>
 
                     {
                       this.state.userPoints.length > 0 ?
@@ -198,12 +195,12 @@ function AuthButton() {
 const Sidebar = () => {
   return (
     <Sider theme="light">
-      <img src={logoInsignia} style={{ height: 45, margin: 20 }}></img>
+      <img src={logoInsignia} alt="Insignia logo" style={{ height: 45, margin: 20 }}></img>
       <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
-        <Menu.Item key="1" icon={<PieChartOutlined />}>
-          Dashboard
+        <Menu.Item key="1" icon={<BarChartOutlined />}>
+          Overview
       </Menu.Item>
-        <Menu.Item key="2" icon={<TeamOutlined />}>
+        <Menu.Item key="2" icon={<BankOutlined />}>
           School
       </Menu.Item>
         <Menu.Item key="3" icon={<UserOutlined />}>
