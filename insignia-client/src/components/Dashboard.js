@@ -1,9 +1,22 @@
 import React, { useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { RootContext } from '../services/RootContext';
+import './Dashboard.css';
+import levelIcon from '../assets/level-icon.png';
+import logoInsignia from '../assets/insignia-light.svg';
 
-import { Layout, Menu, Table, Statistic, Card, Row, Col } from 'antd';
+import { Bar } from 'ant-design-pro/lib/Charts';
+import { Layout, Menu, Table, Statistic, Card, Row, Col, Typography, Empty, Button } from 'antd';
+import {
+  DesktopOutlined,
+  PieChartOutlined,
+  LogoutOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+
 const { Content, Sider } = Layout;
+const { Title } = Typography;
 
 export class Dashboard extends React.Component {
   constructor() {
@@ -14,7 +27,8 @@ export class Dashboard extends React.Component {
       user: {
         Statistics: []
       },
-      displayName: ""
+      displayName: "",
+      userPoints: []
     };
     this.getStatistics = this.getStatistics.bind(this);
   }
@@ -51,8 +65,22 @@ export class Dashboard extends React.Component {
   }
 
   mapUserResult(userData) {
+    var points = [];
+
+    if (userData.PointsHistory) {
+      for (let i = 0; i < userData.PointsHistory.length; i++) {
+        points.push(
+          {
+            x: `Intento ${i + 1}`,
+            y: userData.PointsHistory[i].Points
+          }
+        )
+      }
+    }
+
     this.setState({
-      displayName: userData.DisplayName
+      displayName: userData.DisplayName,
+      userPoints: points
     })
   }
 
@@ -78,35 +106,97 @@ export class Dashboard extends React.Component {
 
     const statistics = this.state.user.Statistics.map((stat) => {
       return (
-       
-          <Card style={{ width: 300 }}>
+        <Col sm={24} md={12} lg={6} >
+          <Card className="dashboard-card" style={{ width: '100%' }}>
             <Statistic
               title={stat.StatisticName}
               value={stat.Value}
               //precision={2}
-              valueStyle={{ color: '#007bff' }}
-            //prefix={<ArrowUpOutlined />}
-            //suffix="%"
+              valueStyle={{ color: /*'#007bff'*/'black', fontSize: '2.5vmax' }}
+              //prefix={<ArrowUpOutlined />}
+              suffix="pts"
+              style={{ fontSize: 14 }}
             />
           </Card>
-       )
+        </Col>
+      )
     })
     return (
       <Layout>
-        <Sider theme="light">
-          <AuthButton />
-        </Sider>
-        <Content style={{padding: '2em'}}>
-          <h2>Hi, {this.state.user.DisplayName}</h2>
-          <h1 style={{fontSize: 50}}>Overview</h1>
-          <Row gutter={16}>
-            {statistics}
+        <Sidebar />
+        <Content style={{ padding: '4em 5em', backgroundColor: '#f9f9f9', }} >
+          <h2 className="main-subtitle">Hola, {this.state.user.DisplayName}!</h2>
+          <Row justify="space-between" align="middle">
+            <Col>
+              <h1 className="main-heading">Overview</h1>
+            </Col>
+            <Col sm={24} md={12} lg={4} style={{ fontSize: 28 }}>
+              <Row align='middle' >
+                <h2 style={{ margin: 0 }}>Lvl 2</h2>
+                <img src={levelIcon} style={{ width: 60, height: 60, margin: 10 }} />
+              </Row>
+            </Col>
           </Row>
+          <Row gutter={[16, 16]}>
+            <Col lg={24} xl={18}>
+              <Row gutter={[16, 16]} justify='start'>
+                {statistics}
+              </Row>
+              <Row gutter={[16, 16]}>
+                <Col span={24}>
+                  <Card className='dashboard-card' style={{ padding: '0 2em' }}>
+                    <span style={{ marginBottom: 30 }}>
+                      <h2 className='h2-dashboard' style={{ margin: 0 }}>Points History</h2>
+                      <span>Based on your last 10 attempts</span>
+                    </span>
 
-          {JSON.stringify(this.state.user)}
+                    {
+                      this.state.userPoints.length > 0 ?
+                        <Bar height={300} data={this.state.userPoints} color='#6DDB8C' />
+                        :
+                        <Empty />
+                    }
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={24} xl={6}>
+              <Card className="dashboard-card" >
+                <h2 className='h2-dashboard'>User Details</h2>
+                <Row>
+                  <Col xs={8} xl={24}>
+                    <Row gutter={4}>
+                      <span>Country</span>
+                    </Row>
+                    <Row gutter={4}>
+                      <h2>{this.state.user.Country}</h2>
+                    </Row>
+                  </Col>
+                  <Col xs={8} xl={24}>
+                    <Row gutter={4}>
+                      <span>Age</span>
+                    </Row>
+                    <Row gutter={4}>
+                      <h2>{this.state.user.Age}</h2>
+                    </Row>
+                  </Col>
+                  <Col xs={24} sm={12} md={8} xl={24}>
+                    <Row gutter={4}>
+                      <span>School</span>
+                    </Row>
+                    <Row gutter={4}>
+                      <h2>{this.state.user.School}</h2>
+                    </Row>
+                  </Col>
+                </Row>
+              </Card>
+            </Col>
+          </Row>
+          {/*
           <Table className="table" columns={columns} dataSource={this.state.leaderboard} loading={this.state.loading} pagination={{ pageSize: 7 }} />
-        </Content>
-      </Layout>
+         */}
+        </ Content>
+      </Layout >
     )
 
   }
@@ -118,18 +208,44 @@ function AuthButton() {
 
   return authenticated ? (
     <p>
-      <button
+      <Button
+        danger
         onClick={() => {
           setAuthenticated(false);
           //fakeAuth.signout(() => 
           history.push("/")
           //);
         }}
+        style={{ width: '100%' }}
+        icon={<LogoutOutlined />}
+        size='large'
       >
         Sign out
-      </button>
+      </Button>
     </p>
   ) : (
       <p>You are not logged in.</p>
     );
+}
+
+const Sidebar = () => {
+  return (
+    <Sider theme="light">
+      <img src={logoInsignia} style={{ height: 45, margin: 20 }}></img>
+      <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
+        <Menu.Item key="1" icon={<PieChartOutlined />}>
+          Dashboard
+      </Menu.Item>
+        <Menu.Item key="2" icon={<TeamOutlined />}>
+          School
+      </Menu.Item>
+        <Menu.Item key="3" icon={<UserOutlined />}>
+          My Profile
+      </Menu.Item>
+      </Menu>
+      <span style={{ position: 'fixed', bottom: 20, left: 40 }}>
+        <AuthButton />
+      </span>
+    </Sider>
+  )
 }

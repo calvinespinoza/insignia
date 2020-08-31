@@ -4,9 +4,10 @@ import './App.css';
 import './App.less';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { Dashboard } from './components/Dashboard';
-import { Login } from './components/Login';
+import { LoginPage } from './components/LoginPage';
 import { Landing } from './components/LandingPage';
 import { RootContext } from './services/RootContext';
+
 //import { AuthService } from './services/AuthService';
 
 
@@ -18,22 +19,19 @@ function App() {
 
   return (
     <Router>
-      <Layout className="layout" style={{height:"100vh"}}>
-        <Header className="header" style={{ backgroundColor: '#F9F9F9', color: 'black' }} >
-          Insignia
-      </Header>
+      <Layout className="layout" style={{ height: "100vh" }}>
         <Switch>
           <Route exact path="/">
             <Landing />
           </Route>
           <Route path="/login">
-            <Login />
+            <LoginPage />
           </Route>
           <PrivateRoute path="/overview">
             <Dashboard />
           </PrivateRoute>
         </Switch>
-        <Footer>footer</Footer>
+        {/* <Footer>footer</Footer> */}
       </Layout>
     </Router>
   );
