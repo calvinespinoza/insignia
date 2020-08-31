@@ -34,20 +34,7 @@ export class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    this.getStatistics('High Score');
     this.getCurrentUserInfo();
-  }
-  getStatistics(statisticName) {
-    fetch('http://localhost:8081/leaderboard?statistic=' + statisticName,)
-      .then(response =>
-        response.json()
-      )
-      .then((data) => {
-        this.setState({
-          leaderboard: data.Leaderboard,
-          loading: false
-        })
-      })
   }
 
   getCurrentUserInfo() {
@@ -85,25 +72,6 @@ export class Dashboard extends React.Component {
   }
 
   render() {
-    const columns = [
-      {
-        title: 'Position',
-        dataIndex: 'Position',
-        key: 'Position',
-        render: text => <a>{text}</a>,
-      },
-      {
-        title: 'Name',
-        dataIndex: 'DisplayName',
-        key: 'DisplayName',
-      },
-      {
-        title: 'Score',
-        dataIndex: 'StatValue',
-        key: 'StatValue',
-      }
-    ];
-
     const statistics = this.state.user.Statistics.map((stat) => {
       return (
         <Col sm={24} md={12} lg={6} >
@@ -152,7 +120,7 @@ export class Dashboard extends React.Component {
 
                     {
                       this.state.userPoints.length > 0 ?
-                        <Bar height={300} data={this.state.userPoints} color='#6DDB8C' />
+                        <Bar height={300} data={this.state.userPoints} color='#2FDF84' />
                         :
                         <Empty />
                     }
@@ -193,7 +161,6 @@ export class Dashboard extends React.Component {
             </Col>
           </Row>
           {/*
-          <Table className="table" columns={columns} dataSource={this.state.leaderboard} loading={this.state.loading} pagination={{ pageSize: 7 }} />
          */}
         </ Content>
       </Layout >
