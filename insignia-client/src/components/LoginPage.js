@@ -13,7 +13,7 @@ export const LoginPage = () => {
         <Layout style={{ backgroundColor: '#f9f9f9' }}>
             <Content style={{ margin: 'auto', padding: '2em', backgroundColor: '#f9f9f9' }}>
                 <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <img src={symbol} alt="Insignia logo" height={100}></img>
+                    <img src={symbol} alt="Insignia logo" style={{height: '6vmax'}}></img>
                     <h1 style={{ fontSize: '3vmax', textAlign: "center", letterSpacing: '-0.05em' }}>Log in to Insignia</h1>
                     <Login />
                 </span>
@@ -81,7 +81,7 @@ const Login = () => {
         console.log('Failed:', errorInfo);
     };
 
-    return (<Card className='dashboard-card' style={{ padding: '3em 1em', }} >
+    return (<Card className='dashboard-card' style={{ padding: '2em 1em', }} >
 
         <Form
             name="basic"
@@ -124,7 +124,7 @@ const Login = () => {
 
             <Form.Item>
                 <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
-                    Submit
+                    Log In
                 </Button>
             </Form.Item>
         </Form>
