@@ -13,7 +13,7 @@ export const LoginPage = () => {
         <Layout style={{ backgroundColor: '#f9f9f9' }}>
             <Content style={{ margin: 'auto', padding: '2em', backgroundColor: '#f9f9f9' }}>
                 <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <img src={symbol} alt="Insignia logo"></img>
+                    <img src={symbol} alt="Insignia logo" height={100}></img>
                     <h1 style={{ fontSize: '3vmax', textAlign: "center", letterSpacing: '-0.05em' }}>Log in to Insignia</h1>
                     <Login />
                 </span>
