@@ -55,7 +55,7 @@ export class Dashboard extends React.Component {
       for (let i = 0; i < userData.PointsHistory.length; i++) {
         points.push(
           {
-            x: `Attempt ${i + 1}`,
+            x: `Intento ${i + 1}`,
             y: userData.PointsHistory[i].Points
           }
         )
@@ -111,8 +111,8 @@ export class Dashboard extends React.Component {
                 <Col span={24}>
                   <Card className='dashboard-card' style={{ padding: '0 2em' }}>
                     <div style={{ marginBottom: 30 }}>
-                      <h2 className='h2-dashboard' style={{ margin: 0 }}>Points History</h2>
-                      <span>Based on your last 10 attempts</span>
+                      <h2 className='h2-dashboard' style={{ margin: 0 }}>Historial de Puntos</h2>
+                      <span>Basado en tus últimos 10 intentos</span>
                     </div>
 
                     {
@@ -127,11 +127,11 @@ export class Dashboard extends React.Component {
             </Col>
             <Col xs={24} xl={6}>
               <Card className="dashboard-card" >
-                <h2 className='h2-dashboard'>User Details</h2>
+                <h2 className='h2-dashboard'>Datos de Usuario</h2>
                 <Row>
                   <Col xs={8} xl={24}>
                     <Row gutter={4}>
-                      <span>Country</span>
+                      <span>Pais</span>
                     </Row>
                     <Row gutter={4}>
                       <h2>{this.state.user.Country}</h2>
@@ -139,7 +139,7 @@ export class Dashboard extends React.Component {
                   </Col>
                   <Col xs={8} xl={24}>
                     <Row gutter={4}>
-                      <span>Age</span>
+                      <span>Edad</span>
                     </Row>
                     <Row gutter={4}>
                       <h2>{this.state.user.Age}</h2>
@@ -147,7 +147,7 @@ export class Dashboard extends React.Component {
                   </Col>
                   <Col xs={24} sm={12} md={8} xl={24}>
                     <Row gutter={4}>
-                      <span>School</span>
+                      <span>Escuela</span>
                     </Row>
                     <Row gutter={4}>
                       <h2>{this.state.user.School}</h2>
@@ -184,7 +184,7 @@ function AuthButton() {
         icon={<LogoutOutlined />}
         size='large'
       >
-        Sign out
+        Cerrar Sesion
       </Button>
     </p>
   ) : (
@@ -201,13 +201,13 @@ const Sidebar = () => {
           Overview
       </Menu.Item>
         <Menu.Item key="2" icon={<BankOutlined />}>
-          School
+          Escuela
       </Menu.Item>
         <Menu.Item key="3" icon={<UserOutlined />}>
-          My Profile
+          Perfil
       </Menu.Item>
       </Menu>
-      <span style={{ position: 'fixed', bottom: 20, left: 40 }}>
+      <span style={{ position: 'fixed', bottom: 20, left: 20 }}>
         <AuthButton />
       </span>
     </Sider>

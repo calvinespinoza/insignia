@@ -84,6 +84,7 @@ const Login = () => {
     return (<Card className='dashboard-card' style={{ padding: '2em 1em', }} >
 
         <Form
+            {...layout} 
             name="basic"
             initialValues={{
                 remember: true,
@@ -93,12 +94,12 @@ const Login = () => {
             size='large'
         >
             <Form.Item
-                label="Username"
+                label="Usuario"
                 name="username"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your username!',
+                        message: 'Debes ingresar tu usuario',
                     },
                 ]}
             >
@@ -106,12 +107,12 @@ const Login = () => {
             </Form.Item>
 
             <Form.Item
-                label="Password"
+                label="Contraseña"
                 name="password"
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your password!',
+                        message: 'Debes ingresar tu contraseña',
                     },
                 ]}
             >
@@ -119,14 +120,19 @@ const Login = () => {
             </Form.Item>
 
             <Form.Item name="remember" valuePropName="checked">
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox>Recordarme</Checkbox>
             </Form.Item>
 
             <Form.Item>
                 <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: '100%' }}>
-                    Log In
+                    Inicia Sesión
                 </Button>
             </Form.Item>
         </Form>
     </Card>)
 }
+
+const layout = {
+    labelCol: { span: 24 },
+    wrapperCol: { span: 24 },
+  };
