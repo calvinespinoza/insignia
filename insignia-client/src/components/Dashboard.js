@@ -6,7 +6,7 @@ import levelIcon from '../assets/level-icon.png';
 import logoInsignia from '../assets/insignia-light.svg';
 
 import { Bar } from 'ant-design-pro/lib/Charts';
-import { Layout, Menu, Statistic, Card, Row, Col, Empty, Button } from 'antd';
+import { Layout, Menu, Statistic, Card, Row, Col, Empty } from 'antd';
 import {
   BarChartOutlined,
   LogoutOutlined,
@@ -165,8 +165,6 @@ export class Dashboard extends React.Component {
               </Card>
             </Col>
           </Row>
-          {/*
-         */}
         </ Content>
       </Layout >
     )
@@ -174,34 +172,9 @@ export class Dashboard extends React.Component {
   }
 }
 
-function AuthButton() {
-  let history = useHistory();
-  const { authenticated, setAuthenticated } = useContext(RootContext);
-
-  return authenticated ? (
-
-    <Button
-      danger
-      onClick={() => {
-        setAuthenticated(false);
-        //fakeAuth.signout(() => 
-        history.push("/")
-        //);
-      }}
-      style={{ margin: 'auto', textAlign: 'center' }}
-      icon={<LogoutOutlined />}
-      size='medium'
-    >
-      Salir
-    </Button>
-  ) : (
-      <p>You are not logged in.</p>
-    );
-}
-
 const Sidebar = () => {
   let history = useHistory();
-  const { authenticated, setAuthenticated } = useContext(RootContext);
+  const { setAuthenticated } = useContext(RootContext);
 
   return (
     <Sider theme="light" breakpoint={'sm'}>
@@ -210,19 +183,17 @@ const Sidebar = () => {
         <Menu.Item key="1" icon={<BarChartOutlined />}>
           Overview
         </Menu.Item>
-        <Menu.Item key="2" icon={<BankOutlined />}>
+        <Menu.Item key="2" icon={<BankOutlined />} disabled>
           Escuela
         </Menu.Item>
         <Menu.SubMenu icon={<UserOutlined />} title="Perfil">
-          <Menu.Item icon={<UserOutlined />}>
+          <Menu.Item icon={<UserOutlined />} disabled>
             Ver Perfil
           </Menu.Item>
           <Menu.Item danger icon={<LogoutOutlined />}
             onClick={() => {
               setAuthenticated(false);
-              //fakeAuth.signout(() => 
               history.push("/");
-              //);
             }}>
            Salir
           </Menu.Item>
