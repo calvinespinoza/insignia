@@ -35,7 +35,7 @@ export class Dashboard extends React.Component {
   }
 
   getCurrentUserInfo() {
-    fetch('http://localhost:8081/current-user')
+    fetch('/current-user')
       .then(response =>
         response.json()
       )
@@ -89,7 +89,7 @@ export class Dashboard extends React.Component {
     return (
       <Layout>
         <Sidebar />
-        <Content style={{ padding: '4em 5em', backgroundColor: '#f9f9f9', }} >
+        <Content style={{ padding: '2em 5em', backgroundColor: '#f9f9f9', }} >
           <h2 className="main-subtitle">Hola, {this.state.user.DisplayName}!</h2>
           <Row justify="space-between" align="middle">
             <Col>
@@ -129,6 +129,14 @@ export class Dashboard extends React.Component {
               <Card className="dashboard-card" >
                 <h2 className='h2-dashboard'>Datos de Usuario</h2>
                 <Row>
+                <Col xs={8} xl={24}>
+                    <Row gutter={4}>
+                      <span>Nombre</span>
+                    </Row>
+                    <Row gutter={4}>
+                      <h2>{this.state.user.DisplayName}</h2>
+                    </Row>
+                  </Col>
                   <Col xs={8} xl={24}>
                     <Row gutter={4}>
                       <span>Pais</span>

@@ -40,6 +40,17 @@ app.route("/login")
 app.route("/current-user")
     .get(playfab.getCurrentUser);
 
+if (process.env.NODE_ENV === 'production') {
+    //production mode
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname = 'client/build/index.html'));
+    })
+} else {
+    //build mode
+    app.get('*', (req, res) => { res.sendFile(path.join(__dirname + '/client/public/index.html')); })
+}
+
 app.listen(port, function () {
     console.log("Server running on port " + port)
 });

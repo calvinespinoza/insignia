@@ -14,7 +14,7 @@ export const LoginPage = () => {
             <Content style={{ margin: 'auto', padding: '2em', backgroundColor: '#f9f9f9' }}>
                 <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <img src={symbol} alt="Insignia logo" style={{height: '6vmax'}}></img>
-                    <h1 style={{ fontSize: '3vmax', textAlign: "center", letterSpacing: '-0.05em' }}>Log in to Insignia</h1>
+                    <h1 style={{ fontSize: '3vmax', textAlign: "center", letterSpacing: '-0.05em' }}>Entra a Insignia</h1>
                     <Login />
                 </span>
             </Content>
@@ -51,7 +51,7 @@ const Login = () => {
             password: values.password
         };
 
-        fetch('http://localhost:8081/login',
+        fetch('/login',
             {
                 "method": 'POST',
                 "body": JSON.stringify(data)
@@ -134,5 +134,5 @@ const Login = () => {
 
 const layout = {
     labelCol: { span: 24 },
-    wrapperCol: { span: 24 },
-  };
+    wrapperCol: { span: 24 }
+};

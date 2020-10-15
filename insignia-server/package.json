@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "playfab-sdk": "^2.54.200817",
@@ -12,7 +13,11 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC"
