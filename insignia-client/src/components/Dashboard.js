@@ -179,29 +179,32 @@ function AuthButton() {
   const { authenticated, setAuthenticated } = useContext(RootContext);
 
   return authenticated ? (
-    <p>
-      <Button
-        danger
-        onClick={() => {
-          setAuthenticated(false);
-          //fakeAuth.signout(() => 
-          history.push("/")
-          //);
-        }}
-        icon={<LogoutOutlined />}
-        size='large'
-      >
-        Cerrar Sesion
-      </Button>
-    </p>
+
+    <Button
+      danger
+      onClick={() => {
+        setAuthenticated(false);
+        //fakeAuth.signout(() => 
+        history.push("/")
+        //);
+      }}
+      style={{ margin: 'auto', textAlign: 'center' }}
+      icon={<LogoutOutlined />}
+      size='medium'
+    >
+      Salir
+    </Button>
   ) : (
       <p>You are not logged in.</p>
     );
 }
 
 const Sidebar = () => {
+  let history = useHistory();
+  const { authenticated, setAuthenticated } = useContext(RootContext);
+
   return (
-    <Sider theme="light" collapsible={true} breakpoint={'sm'}>
+    <Sider theme="light" breakpoint={'sm'}>
       <img src={logoInsignia} alt="Insignia logo" style={{ height: 45, margin: 20 }}></img>
       <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
         <Menu.Item key="1" icon={<BarChartOutlined />}>
@@ -210,11 +213,23 @@ const Sidebar = () => {
         <Menu.Item key="2" icon={<BankOutlined />}>
           Escuela
         </Menu.Item>
-        <Menu.Item key="3" icon={<UserOutlined />}>
-          Perfil
-        </Menu.Item>
-        <AuthButton />
+        <Menu.SubMenu icon={<UserOutlined />} title="Perfil">
+          <Menu.Item icon={<UserOutlined />}>
+            Ver Perfil
+          </Menu.Item>
+          <Menu.Item danger icon={<LogoutOutlined />}
+            onClick={() => {
+              setAuthenticated(false);
+              //fakeAuth.signout(() => 
+              history.push("/");
+              //);
+            }}>
+           Salir
+          </Menu.Item>
+        </Menu.SubMenu>
       </Menu>
+
+
     </Sider>
   )
 }
