@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === 'production') {
     app.get('*', (req, res) => { res.sendFile(path.join(__dirname + './insignia-client/public/index.html')); })
 }
 
-app.listen(port, function () {
+app.listen(process.env.PORT || port, function () {
     console.log("Server running on port " + port)
 });
 
