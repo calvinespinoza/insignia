@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var https = require('https');
 var fs = require('fs');
 var cors = require('cors');
+var path = require('path');
 
 var playfab = require('./index');
 var port = 8081;
