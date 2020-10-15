@@ -43,13 +43,13 @@ app.route("/current-user")
 
 if (process.env.NODE_ENV === 'production') {
     //production mode
-    app.use(express.static(path.join(__dirname, './insignia-client/build')));
+    app.use(express.static(path.join(__dirname, 'insignia-client/build')));
     app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname = './insignia-client/build/index.html'));
+        res.sendFile(path.join(__dirname = 'insignia-client/build/index.html'));
     })
 } else {
     //build mode
-    app.get('*', (req, res) => { res.sendFile(path.join(__dirname + './insignia-client/public/index.html')); })
+    app.get('*', (req, res) => { res.sendFile(path.join(__dirname + 'insignia-client/public/index.html')); })
 }
 
 app.listen(process.env.PORT || port, function () {
