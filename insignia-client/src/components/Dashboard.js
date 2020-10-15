@@ -129,7 +129,7 @@ export class Dashboard extends React.Component {
               <Card className="dashboard-card" >
                 <h2 className='h2-dashboard'>Datos de Usuario</h2>
                 <Row>
-                <Col xs={8} xl={24}>
+                  <Col xs={8} xl={24}>
                     <Row gutter={4}>
                       <span>Nombre</span>
                     </Row>
@@ -188,7 +188,6 @@ function AuthButton() {
           history.push("/")
           //);
         }}
-        style={{ width: '100%' }}
         icon={<LogoutOutlined />}
         size='large'
       >
@@ -202,22 +201,20 @@ function AuthButton() {
 
 const Sidebar = () => {
   return (
-    <Sider theme="light">
+    <Sider theme="light" collapsible={true} breakpoint={'sm'}>
       <img src={logoInsignia} alt="Insignia logo" style={{ height: 45, margin: 20 }}></img>
       <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
         <Menu.Item key="1" icon={<BarChartOutlined />}>
           Overview
-      </Menu.Item>
+        </Menu.Item>
         <Menu.Item key="2" icon={<BankOutlined />}>
           Escuela
-      </Menu.Item>
+        </Menu.Item>
         <Menu.Item key="3" icon={<UserOutlined />}>
           Perfil
-      </Menu.Item>
-      </Menu>
-      <span style={{ position: 'fixed', bottom: 20, left: 20 }}>
+        </Menu.Item>
         <AuthButton />
-      </span>
+      </Menu>
     </Sider>
   )
 }
