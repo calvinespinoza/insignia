@@ -1,0 +1,43 @@
+#landing-span {
+    height: 95vh;
+    width: 100vw;
+    z-index: 1;
+    position: relative;
+    min-height: 650px;
+}
+
+#landing-span Button {
+    width: 100%;
+    margin-bottom: 3%;
+}
+
+.main-title {
+    font-size: 4vmax;
+    font-weight: 500;
+}
+
+.main-title:before {
+    height: .75vmax;
+    width: 7vmax;
+    background-color: #2FDF84;
+    content: '';
+    display: block;
+}
+
+#action-buttons {
+    display: grid;
+    width: 100%;
+}
+
+.floating {  
+    animation-name: floating;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes floating {
+    from { transform: translate(0,  0px); }
+    55%  { transform: translate(0, 15px); }
+    to   { transform: translate(0, -0px); }    
+}

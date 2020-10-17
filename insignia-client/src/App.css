@@ -30,6 +30,10 @@
   pointer-events: none;
 }
 
+.low-tracking {
+  letter-spacing: -0.05em;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
