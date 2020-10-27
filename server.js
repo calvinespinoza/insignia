@@ -38,7 +38,7 @@ app.route("/leaderboard")
 app.route("/login")
     .post(playfab.login);
 
-app.route("/current-user")
+app.route("/current-user/:entityId")
     .get(playfab.getCurrentUser);
 
 if (process.env.NODE_ENV === 'production') {

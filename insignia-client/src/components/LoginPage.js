@@ -43,7 +43,7 @@ const Login = () => {
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
 
-    const { setAuthenticated } = useContext(RootContext);
+    const { setAuthenticated, setAuthBody } = useContext(RootContext);
 
     const onFinish = (values) => {
         var data = {
@@ -57,11 +57,15 @@ const Login = () => {
                 "body": JSON.stringify(data)
             })
             .then(handleErrors)
-            .then(data => {
+            .then(response =>
+                response.json()
+              )
+              .then((data) => {
                 console.log('Request success: ', data);
                 setAuthenticated(true);
+                setAuthBody(data.EntityToken.Entity.Id)
                 history.replace(from);
-            })
+              })
             .catch(err => {
                 message.error('Login failed: ' + err);
                 console.log('Request failure: ', err);

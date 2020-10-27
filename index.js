@@ -1,4 +1,4 @@
-const { PlayFabServer, PlayFab, PlayFabClient } = require("playfab-sdk");
+const { PlayFabServer, PlayFab, PlayFabClient, PlayFabCloudScript } = require("playfab-sdk");
 let mappingData = require('./mapping.json');
 
 PlayFab.settings.titleId = "A32F0";
@@ -32,16 +32,30 @@ function login(req, res) {
 }
 
 function getCurrentUser(req, res) {
-    var request = {
-        FunctionName: "getUserData",
-        RevisionSelection: "Latest",
-        GeneratePlayStreamEvent: true
+    if (playerEntity) {
+        var request = {
+            FunctionName: "getUserData",
+            RevisionSelection: "Latest",
+            GeneratePlayStreamEvent: true,
+            Entity: {
+                Id: req.params.entityId,
+                Type: "title_player_account",
+                TypeString: "title_player_account"
+            }
+        }
+        PlayFabCloudScript.ExecuteEntityCloudScript(request, (error, result) => {
+            if (result) {
+                result.data.FunctionResult.Statistics = mapStatistics(result.data);
+                console.log(result.data.FunctionResult.Statistics);
+                HandleCallbackResult(res, error, result.data.FunctionResult)
+            } else {
+                HandleCallbackResult(res, error, result)
+            }
+        })
     }
-    PlayFabClient.ExecuteCloudScript(request, (error, result) => {
-        result.data.FunctionResult.Statistics = mapStatistics(result.data);
-        console.log(result.data.FunctionResult.Statistics);
-        HandleCallbackResult(res, error, result.data.FunctionResult)
-    })
+    else {
+        res.status(401).send("You need to login to continue");
+    }
 }
 
 function mapStatistics(result) {
