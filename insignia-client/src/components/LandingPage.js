@@ -27,7 +27,7 @@ export const Landing = () => {
                             </Col>
                             <Col md={12} xs={24} gutter={16}>
                                 <Button size='large' type='ghost'>
-                                    <Link to="/login">Iniciar Sesión</Link>
+                                    <Link to="/overview">Iniciar Sesión</Link>
                                 </Button>
                             </Col>
                         </Row>

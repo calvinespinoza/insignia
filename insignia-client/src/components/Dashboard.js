@@ -30,8 +30,10 @@ export const Dashboard = () => {
       response.json()
     )
     .then((userData) => {
-      mapUserResult(userData);
-      setUser(userData);
+      if(userData.Statistics) {
+        mapUserResult(userData);
+        setUser(userData);
+      }
     })
   }, [authBody]);
 

@@ -32,30 +32,25 @@ function login(req, res) {
 }
 
 function getCurrentUser(req, res) {
-    if (playerEntity) {
-        var request = {
-            FunctionName: "getUserData",
-            RevisionSelection: "Latest",
-            GeneratePlayStreamEvent: true,
-            Entity: {
-                Id: req.params.entityId,
-                Type: "title_player_account",
-                TypeString: "title_player_account"
-            }
+    var request = {
+        FunctionName: "getUserData",
+        RevisionSelection: "Latest",
+        GeneratePlayStreamEvent: true,
+        Entity: {
+            Id: req.params.entityId,
+            Type: "title_player_account",
+            TypeString: "title_player_account"
         }
-        PlayFabCloudScript.ExecuteEntityCloudScript(request, (error, result) => {
-            if (result) {
-                result.data.FunctionResult.Statistics = mapStatistics(result.data);
-                console.log(result.data.FunctionResult.Statistics);
-                HandleCallbackResult(res, error, result.data.FunctionResult)
-            } else {
-                HandleCallbackResult(res, error, result)
-            }
-        })
     }
-    else {
-        res.status(401).send("You need to login to continue");
-    }
+    PlayFabCloudScript.ExecuteEntityCloudScript(request, (error, result) => {
+        if (result) {
+            result.data.FunctionResult.Statistics = mapStatistics(result.data);
+            console.log(result.data.FunctionResult.Statistics);
+            HandleCallbackResult(res, error, result.data.FunctionResult)
+        } else {
+            HandleCallbackResult(res, error, result)
+        }
+    })
 }
 
 function mapStatistics(result) {
