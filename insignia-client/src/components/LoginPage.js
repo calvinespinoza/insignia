@@ -63,7 +63,7 @@ const Login = () => {
               .then((data) => {
                 console.log('Request success: ', data);
                 setAuthenticated(true);
-                setAuthBody(data.EntityToken.Entity.Id)
+                setAuthBody(data.SessionTicket)
                 history.replace(from);
               })
             .catch(err => {

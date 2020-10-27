@@ -2,9 +2,9 @@ const { PlayFabServer, PlayFab, PlayFabClient, PlayFabCloudScript } = require("p
 let mappingData = require('./mapping.json');
 
 PlayFab.settings.titleId = "A32F0";
+PlayFab.settings.developerSecretKey = "6QG3HXGR4X393YGBIWBPAHYBXA5SD4RXTSJAOX6BJPXW4BKOMO";
 
 function getLeaderboard(statisticName, fn) {
-    PlayFab.settings.developerSecretKey = "6QG3HXGR4X393YGBIWBPAHYBXA5SD4RXTSJAOX6BJPXW4BKOMO";
     var leaderboardRequest = {
         StatisticName: statisticName,
         StartPosition: 0,
@@ -36,19 +36,24 @@ function getCurrentUser(req, res) {
         FunctionName: "getUserData",
         RevisionSelection: "Latest",
         GeneratePlayStreamEvent: true,
-        Entity: {
-            Id: req.params.entityId,
-            Type: "title_player_account",
-            TypeString: "title_player_account"
-        }
+
     }
-    PlayFabCloudScript.ExecuteEntityCloudScript(request, (error, result) => {
-        if (result) {
-            result.data.FunctionResult.Statistics = mapStatistics(result.data);
-            console.log(result.data.FunctionResult.Statistics);
-            HandleCallbackResult(res, error, result.data.FunctionResult)
+    var sessionTicket = {
+        SessionTicket: req.params.sessionTicket,
+    }
+    PlayFabServer.AuthenticateSessionTicket(sessionTicket, (error, result) => {
+        if (error) {
+            res.status(error.code).send(error);
         } else {
-            HandleCallbackResult(res, error, result)
+            PlayFabClient.ExecuteCloudScript(request, (error, result) => {
+                if (result) {
+                    result.data.FunctionResult.Statistics = mapStatistics(result.data);
+                    console.log(result.data.FunctionResult.Statistics);
+                    HandleCallbackResult(res, error, result.data.FunctionResult)
+                } else {
+                    HandleCallbackResult(res, error, result)
+                }
+            })
         }
     })
 }
