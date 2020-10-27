@@ -79,7 +79,7 @@ export class Dashboard extends React.Component {
               //precision={2}
               valueStyle={{ color: /*'#007bff'*/'black', fontSize: '2.5vmax' }}
               //prefix={<ArrowUpOutlined />}
-              suffix="pts"
+              suffix={stat.Suffix}
               style={{ fontSize: 14 }}
             />
           </Card>

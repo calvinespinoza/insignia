@@ -1,4 +1,6 @@
 const { PlayFabServer, PlayFab, PlayFabClient } = require("playfab-sdk");
+let mappingData = require('./mapping.json');
+
 PlayFab.settings.titleId = "A32F0";
 
 function getLeaderboard(statisticName, fn) {
@@ -36,8 +38,24 @@ function getCurrentUser(req, res) {
         GeneratePlayStreamEvent: true
     }
     PlayFabClient.ExecuteCloudScript(request, (error, result) => {
+        result.data.FunctionResult.Statistics = mapStatistics(result.data);
+        console.log(result.data.FunctionResult.Statistics);
         HandleCallbackResult(res, error, result)
     })
+}
+
+function mapStatistics(result) {
+    var stats = result.FunctionResult.Statistics;
+    var newStatsObject = [];
+    stats.forEach(stat => {
+        var statMapData = mappingData.statisticsMapping[stat.StatisticName];
+        newStatsObject.push({
+            StatisticName: statMapData["spanishName"],
+            Value: stat.Value,
+            Suffix: statMapData["suffix"]
+        })
+    });
+    return newStatsObject;
 }
 
 function HandleCallbackResult(res, error, result) {

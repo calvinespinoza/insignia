@@ -1,0 +1,24 @@
+{
+    "statisticsMapping": {
+        "High Score": {
+            "englishName": "High Score",
+            "spanishName": "Puntuación más alta",
+            "suffix": "pts"
+        },
+        "Total Attempts": {
+            "englishName": "Total Attempts",
+            "spanishName": "Número de intentos",
+            "suffix": ""
+        },
+        "Total Score": {
+            "englishName": "Total Score",
+            "spanishName": "Puntaje total",
+            "suffix": "pts"
+        },
+        "Latest Score": {
+            "englishName": "Latest Score",
+            "spanishName": "Última puntuación",
+            "suffix": "pts"
+        }
+    }
+}
