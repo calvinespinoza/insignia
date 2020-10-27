@@ -27,7 +27,7 @@ function login(req, res) {
     }
     console.log({ LoginRequest: loginRequest });
     PlayFabClient.LoginWithPlayFab(loginRequest, (error, result) => {
-        HandleCallbackResult(res, error, result);
+        HandleCallbackResult(res, error, result.data);
     })
 }
 
@@ -40,7 +40,7 @@ function getCurrentUser(req, res) {
     PlayFabClient.ExecuteCloudScript(request, (error, result) => {
         result.data.FunctionResult.Statistics = mapStatistics(result.data);
         console.log(result.data.FunctionResult.Statistics);
-        HandleCallbackResult(res, error, result)
+        HandleCallbackResult(res, error, result.data.FunctionResult)
     })
 }
 
@@ -63,7 +63,7 @@ function HandleCallbackResult(res, error, result) {
         console.log(CompileErrorReport(error));
         res.status(error.code).send(error);
     } else {
-        res.send(result.data);
+        res.send(result);
     }
 }
 

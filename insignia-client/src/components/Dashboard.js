@@ -23,7 +23,8 @@ export class Dashboard extends React.Component {
       leaderboard: [],
       loading: true,
       user: {
-        Statistics: []
+        Statistics: [],
+        LevelProgress: {}
       },
       displayName: "",
       userPoints: []
@@ -39,10 +40,10 @@ export class Dashboard extends React.Component {
       .then(response =>
         response.json()
       )
-      .then((data) => {
-        this.mapUserResult(data.FunctionResult)
+      .then((userData) => {
+        this.mapUserResult(userData)
         this.setState({
-          user: data.FunctionResult,
+          user: userData,
           //loading: false
         })
       })
@@ -71,7 +72,7 @@ export class Dashboard extends React.Component {
   render() {
     const statistics = this.state.user.Statistics.map((stat) => {
       return (
-        <Col sm={24} md={12} lg={6} >
+        <Col xs={24} md={12} xl={6} >
           <Card className="dashboard-card" style={{ width: '100%' }}>
             <Statistic
               title={stat.StatisticName}
@@ -97,24 +98,23 @@ export class Dashboard extends React.Component {
             </Col>
             <Col sm={24} md={12} lg={4} style={{ fontSize: 28 }}>
               <Row align='middle' >
-                <h2 style={{ margin: 0 }}>Lvl 2</h2>
+                <h2 style={{ margin: 0 }}>Lvl {this.state.user.LevelProgress.CurrentLevel}</h2>
                 <img src={levelIcon} alt='level-icon' style={{ width: 60, height: 60, margin: 10 }} />
               </Row>
             </Col>
           </Row>
           <Row gutter={[16, 16]}>
-            <Col lg={24} xl={18}>
+            <Col span={24}>
               <Row gutter={[16, 16]} justify='start'>
                 {statistics}
               </Row>
               <Row gutter={[16, 16]}>
-                <Col span={24}>
+                <Col xs={24} xl={18}>
                   <Card className='dashboard-card' style={{ padding: '0 2em' }}>
                     <div style={{ marginBottom: 30 }}>
                       <h2 className='h2-dashboard' style={{ margin: 0 }}>Historial de Puntos</h2>
                       <span>Basado en tus últimos 10 intentos</span>
                     </div>
-
                     {
                       this.state.userPoints.length > 0 ?
                         <Bar height={300} data={this.state.userPoints} color='#2FDF84' />
@@ -123,46 +123,46 @@ export class Dashboard extends React.Component {
                     }
                   </Card>
                 </Col>
+                <Col xs={24} xl={6}>
+                  <Card className="dashboard-card" >
+                    <h2 className='h2-dashboard'>Datos de Usuario</h2>
+                    <Row>
+                      <Col xs={8} xl={24}>
+                        <Row gutter={4}>
+                          <span>Nombre</span>
+                        </Row>
+                        <Row gutter={4}>
+                          <h2>{this.state.user.DisplayName}</h2>
+                        </Row>
+                      </Col>
+                      <Col xs={8} xl={24}>
+                        <Row gutter={4}>
+                          <span>Pais</span>
+                        </Row>
+                        <Row gutter={4}>
+                          <h2>{this.state.user.Country}</h2>
+                        </Row>
+                      </Col>
+                      <Col xs={8} xl={24}>
+                        <Row gutter={4}>
+                          <span>Edad</span>
+                        </Row>
+                        <Row gutter={4}>
+                          <h2>{this.state.user.Age}</h2>
+                        </Row>
+                      </Col>
+                      <Col xs={24} sm={12} md={8} xl={24}>
+                        <Row gutter={4}>
+                          <span>Escuela</span>
+                        </Row>
+                        <Row gutter={4}>
+                          <h2>{this.state.user.School}</h2>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
               </Row>
-            </Col>
-            <Col xs={24} xl={6}>
-              <Card className="dashboard-card" >
-                <h2 className='h2-dashboard'>Datos de Usuario</h2>
-                <Row>
-                  <Col xs={8} xl={24}>
-                    <Row gutter={4}>
-                      <span>Nombre</span>
-                    </Row>
-                    <Row gutter={4}>
-                      <h2>{this.state.user.DisplayName}</h2>
-                    </Row>
-                  </Col>
-                  <Col xs={8} xl={24}>
-                    <Row gutter={4}>
-                      <span>Pais</span>
-                    </Row>
-                    <Row gutter={4}>
-                      <h2>{this.state.user.Country}</h2>
-                    </Row>
-                  </Col>
-                  <Col xs={8} xl={24}>
-                    <Row gutter={4}>
-                      <span>Edad</span>
-                    </Row>
-                    <Row gutter={4}>
-                      <h2>{this.state.user.Age}</h2>
-                    </Row>
-                  </Col>
-                  <Col xs={24} sm={12} md={8} xl={24}>
-                    <Row gutter={4}>
-                      <span>Escuela</span>
-                    </Row>
-                    <Row gutter={4}>
-                      <h2>{this.state.user.School}</h2>
-                    </Row>
-                  </Col>
-                </Row>
-              </Card>
             </Col>
           </Row>
         </ Content>
@@ -195,7 +195,7 @@ const Sidebar = () => {
               setAuthenticated(false);
               history.push("/");
             }}>
-           Salir
+            Salir
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>
