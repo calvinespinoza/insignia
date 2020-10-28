@@ -1,4 +1,5 @@
 import { React } from 'react';
+import { Table } from 'antd';
 
 export class Leaderboard extends React.Component {
     constructor() {
